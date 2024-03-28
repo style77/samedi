@@ -58,11 +58,13 @@ func (c CommandRequest) Handle() error {
 		return fmt.Errorf("unknown command: %s", c.Name)
 	}
 
-	if len(c.Args) < len(cmd.Arguments) {
-		return fmt.Errorf("missing arguments for command: %s", c.Name)
+	command_args := c.Args
+
+	if len(command_args) < len(cmd.Arguments) {
+		command_args = RetrieveArgumentsInteractivally(cmd.Arguments[len(c.Args):])
 	}
 
-	cmd.callback(c.Args...)
+	cmd.callback(command_args...)
 	return nil
 }
 
