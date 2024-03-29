@@ -1,7 +1,6 @@
 package web
 
 import (
-	"embed"
 	"fmt"
 	"net/http"
 
@@ -21,14 +20,11 @@ func NewServer(host string, port int) *Server {
 	}
 }
 
-// go:embed app/static/*
-var static embed.FS
-
 func (s *Server) Serve(blog *blogs.Blog) {
 	handler := http.NewServeMux()
 	handler.HandleFunc("GET /", app.IndexHandler(blog))
-	handler.HandleFunc("GET /post/{id}", app.PostHandler(blog))
-	handler.Handle("GET /static", http.StripPrefix("/static/", http.FileServer(http.FS(static))))
+	handler.HandleFunc("GET /post/{id}/", app.PostHandler(blog))
+	handler.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/app/static"))))
 
 	go func() {
 		err := http.ListenAndServe(fmt.Sprintf("%s:%d", s.Host, s.Port), handler)
