@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/style77/samedi/internal/blogs"
 	"github.com/style77/samedi/internal/cli"
+	"github.com/style77/samedi/internal/posts"
 	"github.com/style77/samedi/internal/web"
 )
 
@@ -11,6 +12,10 @@ func Init() {
 		{Name: "name", Required: true, Position: 0},
 		{Name: "description", Required: false, Position: 1},
 	}, "Create a new blog")
+	cli.RegisterCommand("create_post", posts.CreatePostCommand, []string{"createpost"}, []cli.CommandArgument{
+		{Name: "blog", Required: true, Position: 0},
+		{Name: "title", Required: true, Position: 1},
+	}, "Create a new post")
 	cli.RegisterCommand("serve", web.ServeCommand, []string{}, []cli.CommandArgument{
 		{Name: "blog", Required: true, Position: 0},
 		{Name: "host", Required: false, Position: 1, IsFlag: true, Default: "localhost"},
