@@ -10,7 +10,7 @@ func CreatePostCommand(args ...string) {
 	blogName := args[0]
 	title := args[1]
 
-	content, err := helpers.GetTextInput(helpers.GetAvailableEditor())
+	content, err := helpers.GetTextInput(helpers.GetAvailableEditor(), "md")
 	if err != nil {
 		return
 	}

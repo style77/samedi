@@ -25,8 +25,8 @@ func GetAvailableEditor() string {
 	return "nano"
 }
 
-func GetTextInput(editor string) (string, error) {
-	tempFile := filepath.Join(os.TempDir(), fmt.Sprintf("input_%d.txt", os.Getpid()))
+func GetTextInput(editor string, extension string) (string, error) {
+	tempFile := filepath.Join(os.TempDir(), fmt.Sprintf("input_%d.%s", os.Getpid(), extension))
 
 	if editor == "" {
 		editor = "vim"
