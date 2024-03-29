@@ -19,6 +19,8 @@ type CommandArgument struct {
 	Name     string
 	Required bool
 	Position int
+	IsFlag   bool
+	Default  string
 }
 
 type Command struct {
@@ -51,20 +53,27 @@ func ParseCommand(cmd []string) (CommandRequest, error) {
 	}, nil
 }
 
-func (c CommandRequest) Handle() error {
+func (c *CommandRequest) Handle() error {
 	cmd, ok := Commands[c.Name]
 
 	if !ok {
 		return fmt.Errorf("unknown command: %s", c.Name)
 	}
 
-	command_args := c.Args
+	commandArgs := c.Args
 
-	if len(command_args) < len(cmd.Arguments) {
-		command_args = RetrieveArgumentsInteractivally(cmd.Arguments[len(c.Args):])
+	var requiredArgsCount int
+	for _, arg := range cmd.Arguments {
+		if arg.Required {
+			requiredArgsCount++
+		}
 	}
 
-	cmd.callback(command_args...)
+	if len(commandArgs) < requiredArgsCount {
+		commandArgs = RetrieveArgumentsInteractively(cmd.Arguments[len(c.Args):])
+	}
+
+	cmd.callback(commandArgs...)
 	return nil
 }
 
@@ -72,6 +81,18 @@ func (c CommandRequest) Handle() error {
 func RegisterCommand(cmd string, f func(...string), aliases []string, args []CommandArgument, description string) {
 	if _, ok := Commands[cmd]; ok {
 		panic(fmt.Sprintf("command %s already registered", cmd))
+	}
+
+	for i, arg := range args {
+		if arg.Position != i {
+			panic(fmt.Sprintf("argument %s must have a position of %d", arg.Name, i))
+		}
+		if arg.IsFlag && arg.Required {
+			panic(fmt.Sprintf("argument %s cannot be a flag and required", arg.Name))
+		}
+		if arg.IsFlag && arg.Default == "" {
+			panic(fmt.Sprintf("argument %s cannot be a flag and not have a default value", arg.Name))
+		}
 	}
 
 	Commands[cmd] = Command{
