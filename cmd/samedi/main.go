@@ -27,6 +27,7 @@ func main() {
 	req, err := cli.ParseCommand(args)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	handleCommand(req)
