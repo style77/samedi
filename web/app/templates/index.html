@@ -3,19 +3,43 @@
 
 <head>
     <title>{{ .Blog.Name }}</title>
-    <link rel="stylesheet" href="static/index.css">
+    <link rel="stylesheet" href="static/styles/index.min.css">
 </head>
 
 <body>
-    <h1>{{ .Blog.Name }}</h1>
-    <ul>
-        {{range .Posts}}
-        <li>
-            <h2>{{.Title}}</h2>
-            <p>{{.Content}}</p>
-        </li>
-        {{end}}
-    </ul>
+    <section class="section">
+        <div class="container">
+            <nav id="nav-main" class="nav">
+                <div id="nav-name" class="nav-left">
+                    <a id="nav-anchor" class="title is-4 nav-item" href="">
+                        {{ .Blog.Name }}
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            {{ range .Posts }}
+            <article>
+                <h3 class="subtitle is-6 date">{{ .CreatedAt.Format "2006-01-02" }}</h3>
+                <h2 class="title">
+                    <a href="/posts/{{ .ID }}/">
+                        {{ .Title }}
+                    </a>
+                </h2>
+                <div class="content">
+                    {{ if gt (len .Content) 200 }}
+                        {{ printf "%s..." (slice .Content 0 200) }}
+                    {{ else }}
+                        {{ .Content }}
+                    {{ end }}
+                    <a class="button is-link" href="/posts/{{ .ID }}/">Read more</a>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </section>
 </body>
 
 </html>
