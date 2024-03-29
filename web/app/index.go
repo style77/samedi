@@ -20,6 +20,11 @@ func IndexHandler(blog *blogs.Blog) http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+
 		postsData, err := posts.GetPosts(blog.ID)
 		if err != nil {
 			fmt.Println(err)
@@ -35,7 +40,6 @@ func IndexHandler(blog *blogs.Blog) http.HandlerFunc {
 			Posts: postsData,
 		})
 		if err != nil {
-			fmt.Println(err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
