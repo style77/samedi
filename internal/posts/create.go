@@ -1,6 +1,8 @@
 package posts
 
 import (
+	"fmt"
+
 	"github.com/style77/samedi/internal/blogs"
 	"github.com/style77/samedi/internal/database"
 	"github.com/style77/samedi/internal/helpers"
@@ -33,5 +35,5 @@ func createPost(title string, content string, blog *blogs.Blog) {
 		return
 	}
 
-	return
+	fmt.Println(fmt.Sprintf("Post %s created in blog %s", title, blog.Name))
 }
