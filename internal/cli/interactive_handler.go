@@ -1,22 +1,31 @@
 package cli
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
-func RetrieveArgumentsInteractivally(arguments []CommandArgument) []string {
+func RetrieveArgumentsInteractively(arguments []CommandArgument) []string {
 	args := make([]string, len(arguments))
 
+	scanner := bufio.NewScanner(os.Stdin)
+
 	for i, arg := range arguments {
+		if arg.IsFlag || !arg.Required {
+			args[i] = arg.Default
+			continue
+		}
 		fmt.Printf("Enter %s: ", arg.Name)
-		val := &args[i]
-		if arg.Required && val == nil {
+		scanner.Scan()
+		val := scanner.Text()
+		if arg.Required && val == "" {
 			fmt.Println("This argument is required")
 			i--
 			continue
 		}
 
-		fmt.Scanln(val)
+		args[i] = val
 	}
 
 	return args
