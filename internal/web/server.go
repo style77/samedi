@@ -31,8 +31,6 @@ func ServeCommand(args ...string) {
 		return
 	}
 
-	fmt.Println(args[1:], host, port)
-
 	server := NewServer(host, port)
 
 	server.Serve(blog)
