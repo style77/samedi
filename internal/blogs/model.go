@@ -11,6 +11,13 @@ type Blog struct {
 	ID          int
 	Name        string
 	Description *string
+	Title       string
+	Author      string
+	Logo        *string
+	Github      *string
+	Twitter     *string
+	Linkedin    *string
+	Language    string
 	CreatedAt   time.Time
 	UpdatedAt   *time.Time
 	// Posts    []Post

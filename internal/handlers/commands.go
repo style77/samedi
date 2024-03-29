@@ -10,7 +10,14 @@ import (
 func Init() {
 	cli.RegisterCommand("create_blog", blogs.CreateBlogCommand, []string{"createblog"}, []cli.CommandArgument{
 		{Name: "name", Required: true, Position: 0},
-		{Name: "description", Required: false, Position: 1},
+		{Name: "title", Required: true, Position: 1},
+		{Name: "author", Required: true, Position: 2},
+		{Name: "description", Required: false, Position: 3},
+		{Name: "logo", Required: false, Position: 4},
+		{Name: "github", Required: false, Position: 5},
+		{Name: "twitter", Required: false, Position: 6},
+		{Name: "linkedin", Required: false, Position: 7},
+		{Name: "language", Required: false, Position: 8, Default: "en"},
 	}, "Create a new blog")
 	cli.RegisterCommand("create_post", posts.CreatePostCommand, []string{"createpost"}, []cli.CommandArgument{
 		{Name: "blog", Required: true, Position: 0},

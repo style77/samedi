@@ -4,7 +4,14 @@ CREATE TABLE IF NOT EXISTS blogs (
     updated_at TIMESTAMP NULL,
 
     name TEXT NOT NULL UNIQUE,
-    description TEXT NULL
+    description TEXT NULL,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    logo TEXT NULL,
+    github TEXT NULL,
+    twitter TEXT NULL,
+    linkedin TEXT NULL,
+    language TEXT NOT NULL DEFAULT 'en'
 );
 
 CREATE TABLE IF NOT EXISTS posts (

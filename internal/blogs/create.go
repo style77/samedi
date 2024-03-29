@@ -12,16 +12,10 @@ func CreateBlogCommand(args ...string) {
 		return
 	}
 
-	name := args[0]
-	description := ""
-	if len(args) > 1 {
-		description = args[1]
-	}
-
-	createBlog(name, description)
+	createBlog(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
 }
 
-func createBlog(name string, description string) {
+func createBlog(name string, title string, author string, description string, logo string, github string, twitter string, linkedin string, language string) {
 	db, err := database.Init()
 	if err != nil {
 		fmt.Println(err)
@@ -34,7 +28,9 @@ func createBlog(name string, description string) {
 		return
 	}
 
-	_, err = db.Exec("INSERT INTO blogs (name, description) VALUES (?, ?)", name, description)
+	_, err = db.Exec(
+		"INSERT INTO blogs (name, description, title, author, logo, github, twitter, linkedin, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		name, description, title, author, logo, github, twitter, linkedin, language)
 	if err != nil {
 		fmt.Println(err)
 		return
