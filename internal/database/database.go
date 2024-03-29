@@ -18,6 +18,7 @@ type Database struct {
 func Init() (*Database, error) {
 	db, err := sql.Open("sqlite3", file)
 	if err != nil {
+		fmt.Println("Error opening database:", err)
 		return nil, err
 	}
 
