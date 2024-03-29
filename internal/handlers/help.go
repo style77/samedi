@@ -24,18 +24,27 @@ func GenerateUsage(cmd string) string {
 }
 
 func GenerateHelp() string {
-	message := "Usage: samedi <command> [args]\n\n"
+	message := "Usage: samedi <command> <required> [optional]\n\n"
 
 	message += "Commands:\n"
 
 	for name, cmd := range cli.Commands {
 		var cmd_args string
 		for _, arg := range cmd.Arguments {
-			cmd_args += fmt.Sprintf(" <%s>", arg.Name)
+			if arg.IsFlag {
+				continue
+			}
+			if arg.Required {
+				cmd_args += fmt.Sprintf(" <%s>", arg.Name)
+			} else {
+				cmd_args += fmt.Sprintf(" [%s]", arg.Name)
+			}
 		}
 
 		message += fmt.Sprintf("  %s%s - %s\n", name, cmd_args, cmd.Meta.Description)
 	}
+
+	message += "\nIf you don't want to provide some of the arguments you can just add space and continue with the next argument.\n"
 
 	return message
 }
