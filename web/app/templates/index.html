@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ .Blog.Name }}</title>
+    <link rel="stylesheet" href="static/index.css">
+</head>
+
+<body>
+    <h1>{{ .Blog.Name }}</h1>
+    <ul>
+        {{range .Posts}}
+        <li>
+            <h2>{{.Title}}</h2>
+            <p>{{.Content}}</p>
+        </li>
+        {{end}}
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+* {
+    --background-color: #212121;
+    --text-color: #fff;
+    --secondary-text-color: #ccc;
+    --link-color: #007bff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    background-color: var(--background-color);
+}
+
+a {
+    color: var(--link-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+}
+
+p {
+    color: var(--secondary-text-color);
+}
