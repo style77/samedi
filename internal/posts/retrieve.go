@@ -23,7 +23,7 @@ func GetPosts(blogId int) ([]Post, error) {
 		return nil, err
 	}
 
-	rows, err := database.Query("SELECT id, title, content, created_at, updated_at FROM posts WHERE blog_id = ?", blogId)
+	rows, err := database.Query("SELECT id, title, content, created_at, updated_at FROM posts WHERE blog_id = ? ORDER BY created_at desc", blogId)
 	if err != nil {
 		return nil, err
 	}
