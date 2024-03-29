@@ -28,6 +28,12 @@ func createBlog(name string, description string) {
 		return
 	}
 
+	blog, _ := GetBlog(name)
+	if blog != nil {
+		fmt.Println(fmt.Sprintf("Blog %s already exists", name))
+		return
+	}
+
 	_, err = db.Exec("INSERT INTO blogs (name, description) VALUES (?, ?)", name, description)
 	if err != nil {
 		fmt.Println(err)
