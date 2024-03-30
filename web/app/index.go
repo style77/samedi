@@ -14,10 +14,12 @@ import (
 var templates embed.FS
 
 func IndexHandler(blog *blogs.Blog) http.HandlerFunc {
-	tmpl, err := template.ParseFS(templates, "templates/index.html")
-	if err != nil {
-		panic(err)
-	}
+	tmpl := template.Must(template.New("index.html").Funcs(
+		template.FuncMap{
+			"Cmp":  func(i *string, j string) bool { return *i == j },
+			"Ncmp": func(i *string, j string) bool { return *i != j },
+		},
+	).ParseFS(templates, "templates/index.html"))
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
@@ -40,6 +42,7 @@ func IndexHandler(blog *blogs.Blog) http.HandlerFunc {
 			Posts: postsData,
 		})
 		if err != nil {
+			fmt.Println(err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
