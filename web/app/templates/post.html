@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ .Blog.Title }} - {{ .Blog.Author }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Blog.Description }}">
+    <meta name="robots" content="index, follow">
+    <meta name="title" property="og:title" content="{{ .Blog.Title }}">
+    <meta name="description" property="og:description" content="{{ .Blog.Description }}">
+    <meta name="author" content="{{ .Blog.Author }}">
+    <meta property="og:url" content="./../../">
+    <meta property="og:site_name" content="{{ .Blog.Title }} - {{ .Blog.Author }}">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="/static/styles/index.min.css">
+    <link rel="shortcut icon" type="image/png" href="{{ .Blog.Logo }}">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <nav id="nav-main" class="nav">
+                <div id="nav-name" class="nav-left">
+                    <a id="nav-anchor" class="title is-4 nav-item" href="./../../">
+                        {{ .Blog.Title }}
+                    </a>
+                </div>
+                <div class="nav-right">
+                    <nav id="nav-items" class="nav-item level is-mobile">
+                        {{ if and .Blog.Github (Ncmp .Blog.Github "") }}
+                        <a class="level-item" aria-label="github" href="{{ .Blog.Github }}" target="_blank"
+                            rel="noopener">
+                            <span class="icon">
+                                <i class="">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" aria-hidden="true">
+                                        <path
+                                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                        </path>
+                                    </svg>
+                                </i>
+                            </span>
+                        </a>
+                        {{ end }}
+                        {{ if and .Blog.Linkedin (Ncmp .Blog.Linkedin "") }}
+                        <a class="level-item" aria-label="linkedin" href="{{ .Blog.Linkedin }}" target="_blank"
+                            rel="noopener">
+                            <span class="icon">
+                                <i class="">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" aria-hidden="true">
+                                        <path stroke-width="1.8"
+                                            d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z">
+                                        </path>
+                                    </svg>
+                                </i>
+                            </span>
+                        </a>
+                        {{ end }}
+                        {{ if and .Blog.Twitter (Ncmp .Blog.Twitter "") }}
+                        <a class="level-item" aria-label="twitter" href="{{ .Blog.Twitter }}" target="_blank"
+                            rel="noopener">
+                            <span class="icon">
+                                <i class="">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" aria-hidden="true">
+                                        <path
+                                            d="M23 3a10 10 0 0 1-2.82.78 4.93 4.93 0 0 0-7.18-1.69 9.89 9.89 0 0 0-15.5 8.06 7.5 7.5 0 0 0 0 .94A7.5 7.5 0 0 0 4 18.5a7.49 7.49 0 0 0 5.47-2.34 3.94 3.94 0 0 1-3.69-2.72 4 4 0 0 0 1.78-.07 7.5 7.5 0 0 0 12.88-6.1 4.94 4.94 0 0 0-.78-2.82 10 10 0 0 0 2.82 1.22z">
+                                        </path>
+                                    </svg>
+                                </i>
+                            </span>
+                        </a>
+                        {{ end }}
+                    </nav>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <article>
+                <div class="subtitle tags is-6 is-pulled-right"></div>
+                <h3 class="subtitle is-6 date">{{ .Post.CreatedAt.Format "2006-01-02" }}</h3>
+                <h2 class="title">
+                    <a href="/posts/{{ .Post.ID }}/">
+                        {{ .Post.Title }}
+                    </a>
+                </h2>
+                <div class="content">
+                    {{ .HTMLPostContent }}
+                </div>
+            </article>
+        </div>
+    </section>
+    <footer class="section">
+        <div class="container has-text-centered">
+            <p>© <a href="/">{{ .Blog.Author }}</a> {{ .CurrentYear }}</p>
+            <p>Powered by <a href="https://github.com/style77/samedi">Samedi</a>.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
