@@ -22,7 +22,7 @@ func ServeCommand(args ...string) {
 	var host string
 	var port int
 
-	flags := flag.NewFlagSet("server", flag.ExitOnError)
+	flags := flag.NewFlagSet("serve", flag.ExitOnError)
 	flags.StringVar(&host, "host", "localhost", "host to serve on")
 	flags.IntVar(&port, "port", 5400, "port to serve on")
 	err := flags.Parse(args[1:])
