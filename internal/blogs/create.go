@@ -1,6 +1,7 @@
 package blogs
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/style77/samedi/internal/database"
@@ -12,10 +13,26 @@ func CreateBlogCommand(args ...string) {
 		return
 	}
 
-	createBlog(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
+	var description, logo, github, twitter, linkedin, language *string
+
+	flags := flag.NewFlagSet("create_blog", flag.ExitOnError)
+	flags.StringVar(description, "description", "", "description of the blog")
+	flags.StringVar(logo, "logo", "", "logo of the blog")
+	flags.StringVar(github, "github", "", "github of the blog")
+	flags.StringVar(twitter, "twitter", "", "twitter of the blog")
+	flags.StringVar(linkedin, "linkedin", "", "linkedin of the blog")
+	flags.StringVar(language, "language", "en", "language of the blog")
+
+	err := flags.Parse(args[1:])
+	if err != nil {
+		fmt.Println("Error parsing flags:", err)
+		return
+	}
+
+	createBlog(args[0], args[1], args[2], description, logo, github, twitter, linkedin, language)
 }
 
-func createBlog(name string, title string, author string, description string, logo string, github string, twitter string, linkedin string, language string) {
+func createBlog(name string, title string, author string, description *string, logo *string, github *string, twitter *string, linkedin *string, language *string) {
 	db, err := database.Init()
 	if err != nil {
 		fmt.Println(err)

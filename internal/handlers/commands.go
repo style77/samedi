@@ -13,11 +13,11 @@ func Init() {
 		{Name: "title", Required: true, Position: 1},
 		{Name: "author", Required: true, Position: 2},
 		{Name: "description", Required: false, Position: 3},
-		{Name: "logo", Required: false, Position: 4},
-		{Name: "github", Required: false, Position: 5},
-		{Name: "twitter", Required: false, Position: 6},
-		{Name: "linkedin", Required: false, Position: 7},
-		{Name: "language", Required: false, Position: 8, Default: "en"},
+		{Name: "logo", Required: false, Position: 4, IsFlag: true},
+		{Name: "github", Required: false, Position: 5, IsFlag: true},
+		{Name: "twitter", Required: false, Position: 6, IsFlag: true},
+		{Name: "linkedin", Required: false, Position: 7, IsFlag: true},
+		{Name: "language", Required: false, Position: 8, IsFlag: true, Default: "en"},
 	}, "Create a new blog")
 	cli.RegisterCommand("create_post", posts.CreatePostCommand, []string{"createpost"}, []cli.CommandArgument{
 		{Name: "blog", Required: true, Position: 0},
