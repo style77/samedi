@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 
 	"github.com/style77/samedi/internal/blogs"
 	"github.com/style77/samedi/internal/posts"
@@ -34,12 +35,16 @@ func IndexHandler(blog *blogs.Blog) http.HandlerFunc {
 			return
 		}
 
+		currentYear := time.Now().Year()
+
 		err = tmpl.Execute(w, struct {
-			Blog  *blogs.Blog
-			Posts []posts.Post
+			Blog        *blogs.Blog
+			Posts       []posts.Post
+			CurrentYear int
 		}{
-			Blog:  blog,
-			Posts: postsData,
+			Blog:        blog,
+			Posts:       postsData,
+			CurrentYear: currentYear,
 		})
 		if err != nil {
 			fmt.Println(err)
