@@ -88,10 +88,7 @@ func RegisterCommand(cmd string, f func(...string), aliases []string, args []Com
 			panic(fmt.Sprintf("argument %s must have a position of %d", arg.Name, i))
 		}
 		if arg.IsFlag && arg.Required {
-			panic(fmt.Sprintf("argument %s cannot be a flag and required", arg.Name))
-		}
-		if arg.IsFlag && arg.Default == "" {
-			panic(fmt.Sprintf("argument %s cannot be a flag and not have a default value", arg.Name))
+			panic(fmt.Sprintf("argument %s cannot be a flag and be required", arg.Name))
 		}
 	}
 
