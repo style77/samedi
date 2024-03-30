@@ -10,7 +10,7 @@
     <meta name="title" property="og:title" content="{{ .Blog.Title }}">
     <meta name="description" property="og:description" content="{{ .Blog.Description }}">
     <meta name="author" content="{{ .Blog.Author }}">
-    <meta property="og:url" content="/">
+    <meta property="og:url" content="./">
     <meta property="og:site_name" content="{{ .Blog.Title }} - {{ .Blog.Author }}">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="static/styles/index.min.css">
@@ -95,7 +95,7 @@
                     {{ else }}
                     {{ .Content }}
                     {{ end }}
-                    <a class="button is-link" href="/posts/{{ .ID }}/">Read more</a>
+                    <a class="button is-link" href="/post/{{ .ID }}/">Read more</a>
                 </div>
             </article>
             {{ end }}
